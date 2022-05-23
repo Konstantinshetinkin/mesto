@@ -5,11 +5,13 @@
     height: 50px;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
-    background-color:black;
+    background-color:rgba(0, 0,0, 0);
+    background-image: url(../../../images/Add-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 @media screen and (max-width:750px) {
     .profile__add-button{
-        margin: 0;
         margin-top: 36px;
         width: 282px;
     }

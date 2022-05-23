@@ -5,7 +5,10 @@
     height: 24px;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    background-color:rgba(0, 0,0, 0);
+    background-image: url(../../../images/Edit-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
     border: 1px solid white;
 }
 @media screen and (max-width:750px) {

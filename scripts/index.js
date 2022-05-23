@@ -3,13 +3,14 @@ const popup=document.querySelector('.popup');
 
 const editButton=document.querySelector('.profile__edit-button');
 const closeButton=document.querySelector('.popup__close-icon');
-const submitButton=document.querySelector('.popup__submit-button');
 
 const profileName=document.querySelector('.profile__name');
 const profileHobby=document.querySelector('.profile__hobby');
 
-const nameField=document.querySelector('.popup__field_1');
-const hobbyField=document.querySelector('.popup__field_2');
+const nameField=document.querySelector('.popup__field_type_name');
+const hobbyField=document.querySelector('.popup__field_type_hobby');
+
+const formElement=document.querySelector('.popup__form')
 
 //Функции 
 
@@ -31,7 +32,7 @@ closeButton.addEventListener('click',function(){
     closePopup(popup);
 });
 
-submitButton.addEventListener('click',function(event){
+formElement.addEventListener('submit',function(event){
     event.preventDefault();
     profileName.textContent = nameField.value;
     profileHobby.textContent = hobbyField.value;
