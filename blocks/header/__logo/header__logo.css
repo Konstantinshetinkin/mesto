@@ -6,6 +6,11 @@
 @media screen and (max-width:1023px) {
     .header__logo{
         margin-left: 27px;
+    }
+}
+@media screen and (max-width:750px) {
+    .header__logo{
+        margin-left: 27px;
         max-width: 104px;
         max-height: 25px;
     }
