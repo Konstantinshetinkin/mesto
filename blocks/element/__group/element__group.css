@@ -1,0 +1,9 @@
+.element__group{
+    padding: 0;
+    margin: 23px 15px 27px 21px;
+    max-width: 246px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
