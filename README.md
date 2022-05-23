@@ -7,4 +7,4 @@
 * Работа в JS:Открытие и закрытие Pop-up , Сохранение полей форм .
 * Работа с Git :ветки Develop ,Features,Hotfixes
 
-*https://konstantinshetinkin.github.io/
+* https://konstantinshetinkin.github.io/mesto/
