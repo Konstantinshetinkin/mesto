@@ -54,6 +54,9 @@ const deleteElement =evt =>{
     const element = getElementByEvent(evt);
     element.remove()};
 
+const likeActive = evt => 
+evt.currentTarget.classList.toggle('element__like_active');
+
 const creatElement = (linkImage,mestoName) => {
     const element = elementTemplate.content
     .cloneNode(true)
@@ -62,7 +65,11 @@ const creatElement = (linkImage,mestoName) => {
     element.querySelector('.element__title').textContent = mestoName;
     element.querySelector('.element__foto').src = linkImage;
     element.querySelector('.element__trash').addEventListener('click',deleteElement);
+    element.querySelector('.element__like').addEventListener('click',likeActive);
+
     return element; 
+    
+
 };
 const addElement= (linkImage,mestoName) => {
     const Element = creatElement(linkImage,mestoName);
@@ -118,3 +125,6 @@ const handleElementSubmit = evt =>{
     };
 
 formElementAdd.addEventListener('submit',handleElementSubmit);
+
+
+
