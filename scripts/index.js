@@ -79,7 +79,7 @@ function openImagePopup(evt){
     popupImage.querySelector('.popup__image').src = element.querySelector('.element__foto').src;
     popupImage.querySelector('.popup__image-title').textContent = element.querySelector('.element__title').textContent;
     openPopup(popupImage);
-    console.log(popupImage)
+    
 }
 const closeButtonImage=document.querySelector('.popup__close-icon_image')
 closeButtonImage.addEventListener('click',()=>{
