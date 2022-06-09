@@ -57,6 +57,7 @@ const deleteElement =evt =>{
 const likeActive = evt => 
 evt.currentTarget.classList.toggle('element__like_active');
 
+const popupImage =document.querySelector('.popup__open-image');
 const creatElement = (linkImage,mestoName) => {
     const element = elementTemplate.content
     .cloneNode(true)
@@ -65,12 +66,27 @@ const creatElement = (linkImage,mestoName) => {
     element.querySelector('.element__title').textContent = mestoName;
     element.querySelector('.element__foto').src = linkImage;
     element.querySelector('.element__trash').addEventListener('click',deleteElement);
-    element.querySelector('.element__like').addEventListener('click',likeActive);
+    element.querySelector('.element__like').addEventListener('click',likeActive);   
+
+    element.querySelector('.element__foto').addEventListener('click',evt =>{openImagePopup(evt)});
+  
 
     return element; 
-    
-
 };
+
+function openImagePopup(evt){
+  const element = getElementByEvent(evt);
+    popupImage.querySelector('.popup__image').src = element.querySelector('.element__foto').src;
+    popupImage.querySelector('.popup__image-title').textContent = element.querySelector('.element__title').textContent;
+    openPopup(popupImage);
+    console.log(popupImage)
+}
+const closeButtonImage=document.querySelector('.popup__close-icon_image')
+closeButtonImage.addEventListener('click',()=>{
+  closePopup(popupImage)
+})
+
+
 const addElement= (linkImage,mestoName) => {
     const Element = creatElement(linkImage,mestoName);
     elementlist.prepend(Element);
@@ -78,11 +94,11 @@ const addElement= (linkImage,mestoName) => {
 initialCards.forEach(card => addElement(card.link, card.name));
 
 function openPopup(popupElement){
-    popupElement.classList.add('popup_opened')
+    popupElement.classList.add('popup__opened')
     
 };
 function closePopup(popupElment){
-    popupElment.classList.remove('popup_opened')
+    popupElment.classList.remove('popup__opened')
 };
 
 
@@ -128,3 +144,10 @@ formElementAdd.addEventListener('submit',handleElementSubmit);
 
 
 
+   // (evt) =>{
+    //   openImage =document.querySelector('.popup__open-image');
+    //   mestoName.textContent = openImage.querySelector('.popup__image-title').src;
+    //   linkImage.src = openImage.querySelector('.popup__image').src;
+    //   openPopup(openImage);
+    //   console.log(evt)
+    // });
