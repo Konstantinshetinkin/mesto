@@ -46,7 +46,6 @@ const initialCards = [
     }
   ]; 
 
-
 const elementlist=document.querySelector('.elements');
 const elementTemplate=document.querySelector('.elements__template');
 const getElementByEvent= evt => evt.currentTarget.closest ('.element');
@@ -67,7 +66,6 @@ const creatElement = (linkImage,mestoName) => {
     element.querySelector('.element__foto').src = linkImage;
     element.querySelector('.element__trash').addEventListener('click',deleteElement);
     element.querySelector('.element__like').addEventListener('click',likeActive);   
-
     element.querySelector('.element__foto').addEventListener('click',evt =>{openImagePopup(evt)});
   
 
