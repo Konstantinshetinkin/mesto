@@ -7,6 +7,7 @@
     position:absolute;
     background: url(../../../images/trash.svg);
     background-size:contain;
+    z-index: 1;
 }
 .element__trash:hover{
     opacity: 0.8;
