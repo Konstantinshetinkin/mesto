@@ -42,6 +42,18 @@ const hobbyField=document.querySelector('.popup__field_type_hobby');
 
 const formProfileElement=document.querySelector('.popup__form_edit')
 
+function detectClickOverlay(evt){
+  if(evt.target.classList.contains('overlay')){
+    closePopup(popupEditProfile);
+    closePopup(popupImage);
+    closePopup(popupAddCard);
+  }
+}
+document.body.addEventListener('click',function(evt){
+  detectClickOverlay(evt);
+})
+
+
 
 const elementlist=document.querySelector('.elements');
 const elementTemplate=document.querySelector('.elements__template');
@@ -92,11 +104,21 @@ initialCards.forEach(card => addElement(card.link, card.name));
 
 function openPopup(popupElement){
     popupElement.classList.add('popup__opened')
+    document.addEventListener('keydown',closeButtonEsc)
     
 };
 function closePopup(popupElment){
     popupElment.classList.remove('popup__opened')
+    document.removeEventListener('keydown',closeButtonEsc)
 };
+
+
+const closeButtonEsc = (evt) => {
+  if(evt.key === 'Escape'){
+    const openedPopup = document.querySelector('.popup__opened');
+    closePopup(openedPopup);
+  }
+}
 
 
 editButton.addEventListener('click',function(){
@@ -138,3 +160,12 @@ const handleElementSubmit = evt =>{
     };
 
 formElementAdd.addEventListener('submit',handleElementSubmit);
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__submit-button',
+  inputErrorClass: 'popup__field_type_error',
+  errorClass: 'popup__field-error_active'
+}
+enableValidation(config);

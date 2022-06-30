@@ -41,34 +41,38 @@
         <p class="footer">© 2020 Mesto Russia</p>
     </footer>
     <div class="popup">
-        <div class="popup__edit-profile">
+        <div class="popup__edit-profile overlay">
             <button type="button" class="popup__close-icon popup__close-icon_edit"></button>
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form  action="URL" name="nameAndHobby" class="popup__form popup__form_edit">
-                    <input   type="text" name="humanName" class="popup__field popup__field_type_name" placeholder="Имя">
-                    <input type="text" name="humanHobby" class="popup__field popup__field_type_hobby" placeholder="Хобби">
+                <form  action="URL" name="nameAndHobby" class="popup__form popup__form_edit" novalidate>
+                    <input   type="text" name="humanName" id="humanName" class="popup__field popup__field_type_name" placeholder="Имя" minlength="2" maxlength="40" required>
+                    <span class="popup__field-error" id="humanName-error"></span>
+                    <input type="text" name="humanHobby" id="humanHobby" class="popup__field popup__field_type_hobby" placeholder="Хобби" minlength="2" maxlength="200" required>
+                    <span class="popup__field-error" id="humanHobby-error"></span>
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>
         </div>
     </div>
     <div class="popup">
-        <div class="popup__add-card">
+        <div class="popup__add-card overlay">
             <button type="button" class="popup__close-icon popup__close-icon_add"></button>
             <div class="popup__container">
                 <h2 class="popup__title">Новое место</h2>
-                <form  action="URL" name="nameAndAdress" class="popup__form popup__form_add">
-                    <input   type="text" name="mestoName" class="popup__field popup__field_type_name-mesto" placeholder="Навание">
-                    <input type="text" name="imageAddress" class="popup__field popup__field_type_image-address" placeholder="Ссылка на картинку">
-                    <button type="submit" class="popup__submit-button">Создать</button>
+                <form  action="URL" name="nameAndAdress" class="popup__form popup__form_add" novalidate>
+                    <input   type="text" name="mestoName" id="mestoName" class="popup__field popup__field_type_name-mesto" placeholder="Навание" minlength="2" maxlength="30" required>
+                    <span class="popup__field-error" id="mestoName-error"></span>
+                    <input  type="url" name="imageAddress" id="imageAddress" class="popup__field popup__field_type_image-address" placeholder="Ссылка на картинку" required>
+                    <span class="popup__field-error" id="imageAddress-error"></span>
+                    <button type="submit" class="popup__submit-button" disabled>Создать</button>
                 </form>
             </div>
         </div>
     </div>
 
     <div class="popup">
-        <div class="popup__open-image">
+        <div class="popup__open-image overlay">
             <div class="popup__container-image">
                 <img src="#" alt="" class="popup__image">
                 <h3 class="popup__image-title"></h3>
@@ -87,6 +91,7 @@
             </div>
         </div>
     </template>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
