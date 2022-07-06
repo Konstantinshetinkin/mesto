@@ -1,12 +1,21 @@
 .popup__field-error{
-    display: none;
+    display: block;
     padding: 0;
-    margin:0px 36px 0px 36px;
+    margin:5px 36px 0px 36px;
     max-width: 358px;
+    min-height: 30px;
     color:red;
+    visibility: hidden;
     font-family: 'Inter',Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
+}
+
+@media screen and (max-width:600px){
+    .popup__field-error{
+        margin:5px 22px 0px 22px;
+    
+    }
 }
