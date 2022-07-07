@@ -99,12 +99,11 @@ initialCards.forEach((card) => addElement(card.link, card.name));
 function openPopup(popupElement) {
   popupElement.classList.add("popup__opened");
   document.addEventListener("keydown", closeButtonEsc);
-  document.addEventListener("click", detectClickOverlay);
+  popupElement.addEventListener("click", detectClickOverlay);
 }
 function closePopup(popupElment) {
   popupElment.classList.remove("popup__opened");
   document.removeEventListener("click", closeButtonEsc);
-  document.removeEventListener("click", detectClickOverlay);
 }
 
 const closeButtonEsc = (evt) => {
