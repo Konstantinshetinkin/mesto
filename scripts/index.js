@@ -104,6 +104,7 @@ function openPopup(popupElement) {
 function closePopup(popupElment) {
   popupElment.classList.remove("popup__opened");
   document.removeEventListener("click", closeButtonEsc);
+  popupElement.removeEventListener("click", detectClickOverlay);
 }
 
 const closeButtonEsc = (evt) => {
@@ -114,8 +115,7 @@ const closeButtonEsc = (evt) => {
 };
 function detectClickOverlay(evt) {
   if (evt.target.classList.contains("overlay")) {
-    const popupOpened = document.querySelector(".popup__opened");
-    closePopup(popupOpened);
+    closePopup(evt.currentTarget)
   }
 }
 
