@@ -1,4 +1,4 @@
-import { Card } from "./card.js";
+import { Card } from "./Сard.js";
 import { FormValidator } from "./FormValidator.js";
 import { initialCards } from "./initialCards.js";
 import { openPopup, popupImage, closePopup } from "./utils.js";
@@ -22,27 +22,30 @@ const nameMesto = formElementAdd.querySelector(".popup__field_type_name-mesto");
 const imageAddress = formElementAdd.querySelector(
   ".popup__field_type_image-address"
 );
-const buttonAddCard = popupAddCard.querySelector(".popup__submit-button");
 //**********************************************************  creating cards from initialCards
+
 const addElement = (link, name) => {
-  const card = new Card(link, name);
-  const cardElement = card.creatCard();
-  cardsContainer.prepend(cardElement);
+  const card = new Card(link, name,'.elements__template');
+  creatCard(card)
 };
 
-initialCards.forEach((item) => addElement(item.link, item.name));
+function creatCard (card){
+  const cardElement = card.creatCard();
+  cardsContainer.prepend(cardElement);
 
-//**********************************************************
+}
+
+initialCards.forEach((item) => addElement(item.link, item.name));// 
 
 //**********************************************************
 buttonEdit.addEventListener("click", function () {
   openPopup(popupEditProfile);
   fieldName.value = profileName.textContent;
   fieldHobby.value = profileHobby.textContent;
-  formList.forEach((formElement) => {
-    const newCardFormValidator = new FormValidator(config,formElement)
-    newCardFormValidator.resetForm();
-  })
+ 
+const resetEditFormValidator = new FormValidator(config,formProfileElement)
+resetEditFormValidator.resetForm();
+
   
 });
 
@@ -58,12 +61,12 @@ formProfileElement.addEventListener("submit", function (evt) {
 });
 
 buttonAdd.addEventListener("click", function () {
+
   openPopup(popupAddCard);
+  formElementAdd.reset();
+  const resetAddFormValidator = new FormValidator(config,formElementAdd)
+  resetAddFormValidator.resetForm();
   
-  formList.forEach((formElement) => {
-    const newCardFormValidator = new FormValidator(config,formElement)
-    newCardFormValidator.resetForm();
-  })
 });
 
 buttonCloseImage.addEventListener("click", () => {
@@ -85,6 +88,7 @@ const handleElementSubmit = (evt) => {
 };
 
 formElementAdd.addEventListener("submit", handleElementSubmit);
+
 const config = {
   formSelector: ".popup__form",
   inputSelector: ".popup__field",
@@ -93,11 +97,11 @@ const config = {
   errorClass: "popup__field-error_active",
 };
 
-const formElement = document.querySelectorAll(config.formSelector);
-const formList = Array.from(formElement);
-formList.forEach((formElement) => {
-  const formValidator = new FormValidator(config, formElement);
-  formValidator.enableValidation();
+const formSelector = document.querySelectorAll(config.formSelector);
+const formList = Array.from(formSelector);
 
-});
+const profileValidation = new FormValidator(config, formProfileElement);
+const newCardValidation = new FormValidator(config, formElementAdd);
+profileValidation.enableValidation();
+newCardValidation.enableValidation(); 
 

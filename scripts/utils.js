@@ -1,8 +1,8 @@
 const popupImage = document.querySelector(".popup__open-image");
+const cardImage = popupImage.querySelector(".popup__image");
+const cardTitle = popupImage.querySelector(".popup__image-title");
 
 const openImagePopup = (name, link) => {
-  const cardImage = popupImage.querySelector(".popup__image");
-  const cardTitle = popupImage.querySelector(".popup__image-title");
   cardImage.src = link;
   cardImage.alt = name;
   cardTitle.textContent = name;
@@ -28,7 +28,6 @@ function closePopup(popupElement) {
 function detectClickOverlay(evt) {
   if (evt.target.classList.contains("overlay")) {
     closePopup(evt.currentTarget);
-    document.querySelector(".popup__form_add").reset();
   }
 }
 

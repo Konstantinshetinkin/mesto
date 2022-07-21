@@ -1,14 +1,16 @@
 import {openImagePopup} from './utils.js'
 
 class Card {
-  constructor(link, name) {
+  constructor(link, name ,elementTemplate) {
     this._link = link;
     this._name = name;
+    this._elementTemplate = elementTemplate
+    
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(".elements__template")
+      .querySelector(this._elementTemplate)
       .content.querySelector(".element")
       .cloneNode(true);
 
@@ -16,16 +18,18 @@ class Card {
   }
   creatCard() {
     this._element = this._getTemplate();
-    this._setEventListener();
+    this._cardImage = this._element.querySelector(".element__foto");
+    this._likeButton = this._element.querySelector(".element__like");
 
-    this._element.querySelector(".element__foto").src = this._link;
+    this._setEventListener();
+    this._cardImage.src = this._link;
+    this._cardImage.Alt = this._name;
     this._element.querySelector(".element__title").textContent = this._name;
 
     return this._element;
   }
   _setEventListener() {
-    this._element
-      .querySelector(".element__like")
+    this._likeButton
       .addEventListener("click", () => {
         this._hanlerLikeActive();
       });
@@ -34,19 +38,18 @@ class Card {
       .addEventListener("click", () => {
         this._handlerDeleteCard();
       });
-    this._element
-      .querySelector(".element__foto")
+    this._cardImage
       .addEventListener("click", () => {
         openImagePopup(this._name,this._link);
       });
   }
   _hanlerLikeActive() {
-    this._element
-      .querySelector(".element__like")
+    this._likeButton
       .classList.toggle("element__like_active");
   }
   _handlerDeleteCard() {
     this._element.remove();
+    this._element = null ;
   }
 }
 
