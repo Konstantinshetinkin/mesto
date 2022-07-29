@@ -1,3 +1,4 @@
+import "./../pages/index.css"
 import { Card } from "./Сard.js";
 import { FormValidator } from "./FormValidator.js";
 import { initialCards } from "./initialCards.js";
@@ -47,7 +48,7 @@ buttonEdit.addEventListener("click", function () {
 buttonAdd.addEventListener("click", function () {
   openPopup(popupAddCard);
   formElementAdd.reset();
-  CardValidation.resetForm();
+  cardValidation.resetForm();
 });
 
 buttonEditClose.addEventListener("click", function () {
@@ -92,6 +93,6 @@ const formSelector = document.querySelectorAll(config.formSelector);
 const formList = Array.from(formSelector);
 
 const profileValidation = new FormValidator(config, formProfileElement);
-const CardValidation = new FormValidator(config, formElementAdd);
+const cardValidation = new FormValidator(config, formElementAdd);
 profileValidation.enableValidation();
-CardValidation.enableValidation();
+cardValidation.enableValidation();
