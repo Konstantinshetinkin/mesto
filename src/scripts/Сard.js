@@ -1,10 +1,10 @@
-import { openImagePopup } from "./utils.js";
 
 class Card {
-  constructor(link, name, templateSelector) {
-    this._link = link;
-    this._name = name;
+  constructor(item, templateSelector,handleCardClick) {
+    this._link = item.link;
+    this._name = item.name;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick
   }
 
   _getTemplate() {
@@ -37,7 +37,8 @@ class Card {
         this._handlerDeleteCard();
       });
     this._cardImage.addEventListener("click", () => {
-      openImagePopup(this._name, this._link);
+      const card = {name:this._name,link:this._link};
+      this._handleCardClick(card);
     });
   }
   _hanlerLikeActive() {
