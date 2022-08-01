@@ -1,21 +1,19 @@
 //************************ Import **********************************
 
 import "./../pages/index.css"
-import { Card } from "./Сard.js";
-import { FormValidator } from "./FormValidator.js";
-import { initialCards} from "./initialCards.js";
-import { Section } from "./Section.js";
-import { Popup } from "./Popup.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-import { PopupWithForm } from "./PopupWithForm";
-import { UserInfo } from "./UserInfo.js";
+import { Card } from "../ components/Сard.js";
+import { FormValidator } from "../ components/FormValidator.js";
+import { initialCards} from "../ components/initialCards.js";
+import { Section } from "../ components/Section.js";
+import { Popup } from "../ components/Popup.js";
+import { PopupWithImage } from "../ components/PopupWithImage.js";
+import { PopupWithForm } from "../ components/PopupWithForm";
+import { UserInfo } from "../ components/UserInfo.js";
 
 //************************ Constants **********************************
 
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
-const profileName = document.querySelector(".profile__name");
-const profileHobby = document.querySelector(".profile__hobby");
 const fieldName = document.querySelector(".popup__field_type_name");
 const fieldHobby = document.querySelector(".popup__field_type_hobby");
 const formProfileElement = document.querySelector(".popup__form_edit");
