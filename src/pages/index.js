@@ -46,23 +46,17 @@ function addElement(item) {
 
 //*********************** Popups ************************************
 
-const popupAddCard = new Popup(".popup__add-card");
-const popupEditProfile = new Popup(".popup__edit-profile");
 const popupOpenImage = new PopupWithImage(".popup__open-image");
-
-//*********************** Forms *************************************
-
-const popupEditForm = new PopupWithForm(".popup__form_edit", submitEditFotm);
-const popupAddForm = new PopupWithForm(".popup__form_add", handleElementSubmit);
+const popupEditForm = new PopupWithForm(".popup__edit-profile", submitEditFotm);
+const popupAddForm = new PopupWithForm(".popup__add-card", handleElementSubmit);
 const user = new UserInfo({
   profileName: ".profile__name",
   profileInfo: ".profile__hobby",
 });
 
 //************************ Functions *********************************
-popupAddCard.setEventListeners();
+// popupAddCard.setEventListeners();
 popupOpenImage.setEventListeners();
-popupEditProfile.setEventListeners();
 popupEditForm.setEventListeners();
 popupAddForm.setEventListeners();
 
@@ -71,23 +65,23 @@ function handleCardClick(card) {
 }
 function handleElementSubmit(item) {
   addElement(item);
-  popupAddCard.close();
+  popupAddForm.close();
 }
 function submitEditFotm(data) {
   user.setUserInfo(data);
-  popupEditProfile.close();
+  popupEditForm.close();
 }
 
 //********************************************************************
 
 buttonAdd.addEventListener("click", function () {
-  popupAddCard.open();
-  popupAddForm.close();
+  popupAddForm.open();
   cardValidation.resetValidation();
 });
 
 buttonEdit.addEventListener("click", function () {
-  popupEditProfile.open();
+  // popupEditProfile.open();
+  popupEditForm.open();
   const info = user.getUserInfo();
   fieldName.value = info.elementName;
   fieldHobby.value = info.elementInfo;
