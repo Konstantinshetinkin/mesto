@@ -9,55 +9,79 @@ import {
   formProfileElement,
   formElementAdd,
   config,
-  initialCards,
+  host,
+  token
 } from "../utils/constants.js";
 import { Card } from "../ components/Сard.js";
 import { FormValidator } from "../ components/FormValidator.js";
 import { Section } from "../ components/Section.js";
 import { PopupWithImage } from "../ components/PopupWithImage.js";
 import { PopupWithForm } from "../ components/PopupWithForm";
+import { PopupTypeDeleteCard } from "../ components/PopupTypeDeleteCard";
 import { UserInfo } from "../ components/UserInfo.js";
+import { Api } from "../ components/Api.js"
+
 
 //************************ Creating cards ****************************
+const api = new Api(host,token)
+api.getCards()
+  .then((items)=>{
+    sectionCards.renderItems(items);
+  })
 
-const sectionCards = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      createElement(item);
-      addElement(item);
+api.getUser().then((info)=>{
+    user.setUserInfo(info)
+})
+
+  const sectionCards = new Section(
+    {
+      items: [],
+      renderer: (item) => {
+        createElement(item);
+        addElement(item);
+      },
     },
-  },
-  ".elements"
-);
-
-sectionCards.renderItems();
+    ".elements"
+  );
 
 function createElement(item) {
-  const card = new Card(item, ".elements__template", handleCardClick);
+  const card = new Card(item, ".elements__template", handleCardClick,deleteClick);
   const cardElement = card.creatCard();
   return cardElement;
 }
-function addElement(item) {
-  const element = createElement(item);
-  sectionCards.addItem(element);
-}
 
+function addElement(item) {
+  api.createCard(item).then((item)=>{
+    const element = createElement(item);
+    sectionCards.addItem(element);
+  })
+}
+function deleteClick(id) {
+  popupTypeDeleteCard.open()
+  popupTypeDeleteCard.changeDeleteClik(()=> {
+    return api.deleteCardFromServer(id).then(res => {
+       card.deleteCard();
+       popupTypeDeleteCard.close()
+    });
+  })
+}
 //*********************** Popups ************************************
 
 const popupOpenImage = new PopupWithImage(".popup__open-image");
 const popupEditForm = new PopupWithForm(".popup__edit-profile", submitEditFotm);
 const popupAddForm = new PopupWithForm(".popup__add-card", handleElementSubmit);
+const popupTypeDeleteCard = new PopupTypeDeleteCard(".popup__type-delete-card");
+
 const user = new UserInfo({
   profileName: ".profile__name",
   profileInfo: ".profile__hobby",
 });
 
 //************************ Functions *********************************
-// popupAddCard.setEventListeners();
 popupOpenImage.setEventListeners();
 popupEditForm.setEventListeners();
 popupAddForm.setEventListeners();
+popupTypeDeleteCard.setEventListeners()
 
 function handleCardClick(card) {
   popupOpenImage.open(card);
@@ -67,7 +91,9 @@ function handleElementSubmit(item) {
   popupAddForm.close();
 }
 function submitEditFotm(data) {
-  user.setUserInfo(data);
+  api.setUser(data).then((data) => {
+    user.setUserInfo(data);
+  })
   popupEditForm.close();
 }
 
@@ -79,7 +105,6 @@ buttonAdd.addEventListener("click", function () {
 });
 
 buttonEdit.addEventListener("click", function () {
-  // popupEditProfile.open();
   popupEditForm.open();
   const info = user.getUserInfo();
   fieldName.value = info.elementName;
