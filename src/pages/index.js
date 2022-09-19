@@ -26,16 +26,18 @@ import { Api } from "../ components/Api.js"
 const api = new Api(host,token)
 api.getCards()
   .then((items)=>{
+      console.log(items);
     sectionCards.renderItems(items);
   })
+let userId
 
 api.getUser().then((info)=>{
+    userId = info._id;
     user.setUserInfo(info)
 })
 
   const sectionCards = new Section(
     {
-      items: [],
       renderer: (item) => {
         createElement(item);
         addElement(item);
@@ -45,7 +47,19 @@ api.getUser().then((info)=>{
   );
 
 function createElement(item) {
-  const card = new Card(item, ".elements__template", handleCardClick,deleteClick);
+  const card = new Card(item,userId,".elements__template", handleCardClick,(id)=>{
+        popupTypeDeleteCard.open()
+        popupTypeDeleteCard.changeDeleteClik(()=>{
+           return api.deleteCardFromServer(id).then(() => {
+           card.deleteCard()
+           popupTypeDeleteCard.close()
+      })
+    }
+    )
+  },()=> {
+    api.addLike(item._id)
+    }
+  );
   const cardElement = card.creatCard();
   return cardElement;
 }
@@ -56,15 +70,7 @@ function addElement(item) {
     sectionCards.addItem(element);
   })
 }
-function deleteClick(id) {
-  popupTypeDeleteCard.open()
-  popupTypeDeleteCard.changeDeleteClik(()=> {
-    return api.deleteCardFromServer(id).then(res => {
-       card.deleteCard();
-       popupTypeDeleteCard.close()
-    });
-  })
-}
+
 //*********************** Popups ************************************
 
 const popupOpenImage = new PopupWithImage(".popup__open-image");

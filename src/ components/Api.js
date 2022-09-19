@@ -56,5 +56,21 @@ class Api{
         })
         .then(this._getJsonOrErorr) 
      }
+
+     deleteLike(id){
+        return fetch(`${this._host}/cards/${id}/likes`,{
+            method: 'DELETE',
+            headers: this._getHeaders(),
+        })
+        .then(this._getJsonOrErorr) 
+     }
+
+     addLike(id){
+        return fetch(`${this._host}/cards/${id}/likes`,{
+            method: 'PUT',
+            headers: this._getHeaders(),
+        })
+        .then(this._getJsonOrErorr) 
+    }
 }
 export { Api }; 
