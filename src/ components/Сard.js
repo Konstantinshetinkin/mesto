@@ -1,4 +1,3 @@
-import { node } from "webpack";
 
 class Card {
   constructor(item,userId,templateSelector, handleCardClick,handleDeleteClick,handleLikeClick) {
@@ -22,30 +21,51 @@ class Card {
       .cloneNode(true);
     return cardElement;
   }
-  _setLikes(){
+  isLiked(){
+    const userHasLikeCard =this._likes.find(like => like._id === this._userId )
+    return userHasLikeCard
+  }
+
+  setLikes(newLikes){
+   this._likes =  newLikes
     const likeScore = this._element.querySelector(".element__like-score");
     likeScore.textContent = this._likes.length
+
+    if(this.isLiked()){
+      this._addLike()
+    }else{
+      this._deleteLike()
+    }
   }
+  _addLike() {
+    this._likeButton.classList.add("element__like_active");
+  }
+  _deleteLike() {
+    this._likeButton.classList.remove("element__like_active");
+  }
+
+
 
   creatCard() {
     this._element = this._getTemplate();
  
     this._cardImage = this._element.querySelector(".element__foto");
     this._likeButton = this._element.querySelector(".element__like");
-    this._setLikes();
+    this.setLikes(this._likes);
   
     this._setEventListener();
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector(".element__title").textContent = this._name;
-    // if(this._userId !== this._ownerId ){
-    //   this._element.querySelector(".element__trash").ClassList.add("element__trash_active")
-    // }
+    if(this._userId !== this._ownerId){
+      this._element.querySelector(".element__trash").classList.add("element__trash_active")
+    }
+
     return this._element;
   }
   _setEventListener() {
     this._likeButton.addEventListener("click",() =>
-      this._handleLikeClick()
+      this._handleLikeClick(this._id)
     );
     this._element
       .querySelector(".element__trash")
@@ -57,9 +77,6 @@ class Card {
       this._handleCardClick(card);
     });
   }
-  // _hanlerLikeActive() {
-  //   this._likeButton.classList.toggle("element__like_active");
-  // }
 
   deleteCard() {
       this._element.remove();

@@ -26,7 +26,6 @@ import { Api } from "../ components/Api.js"
 const api = new Api(host,token)
 api.getCards()
   .then((items)=>{
-      console.log(items);
     sectionCards.renderItems(items);
   })
 let userId
@@ -39,8 +38,8 @@ api.getUser().then((info)=>{
   const sectionCards = new Section(
     {
       renderer: (item) => {
-        createElement(item);
-        addElement(item);
+        const card = createElement(item);
+        sectionCards.addItem(card)
       },
     },
     ".elements"
@@ -57,8 +56,16 @@ function createElement(item) {
     }
     )
   },()=> {
-    api.addLike(item._id)
+    if(card.isLiked()){
+      api.deleteLike(item._id).then((res)=>{
+        card.setLikes(res.likes)
+      })
+    }else{
+      api.addLike(item._id).then((res)=>{
+        card.setLikes(res.likes)
+    })
     }
+  }
   );
   const cardElement = card.creatCard();
   return cardElement;
