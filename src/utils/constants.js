@@ -6,6 +6,8 @@ const fieldName = document.querySelector(".popup__field_type_name");
 const fieldHobby = document.querySelector(".popup__field_type_hobby");
 const formProfileElement = document.querySelector(".popup__form_edit");
 const formElementAdd = document.querySelector(".popup__form_add");
+const formElementAddAvatar = document.querySelector(".popup__form_add-avatar");
+const avatar = document.querySelector(".profile__avatar-button");
 
 const config = {
   formSelector: ".popup__form",
@@ -14,17 +16,18 @@ const config = {
   inputErrorClass: "popup__field_type_error",
   errorClass: "popup__field-error_active",
 };
-const host = 'https://mesto.nomoreparties.co/v1/cohort-50';
-const token ='722af578-3e81-4a0f-a886-d6ad0c355458';
-
+const host = "https://mesto.nomoreparties.co/v1/cohort-50";
+const token = "722af578-3e81-4a0f-a886-d6ad0c355458";
 export {
   buttonEdit,
   buttonAdd,
+  avatar,
   fieldName,
   fieldHobby,
   formProfileElement,
   formElementAdd,
+  formElementAddAvatar,
   config,
   host,
-  token
+  token,
 };

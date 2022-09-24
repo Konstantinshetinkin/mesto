@@ -21,10 +21,9 @@
       <section class="profile">
         <div class="profile__human">
           <img
-            src="<%=require('./images/Avatar.svg')%>"
-            alt="Жак Кусто"
             class="profile__avatar"
           />
+          <button class="profile__avatar-button"></button>
           <div>
             <div class="profile__name-block">
               <h1 class="profile__name"></h1>
@@ -127,6 +126,36 @@
       </div>
 
       <div class="popup">
+        <div class="popup__new-avatar overlay">
+          <button
+            type="button"
+            class="popup__close-icon popup__close-icon_add"
+          ></button>
+          <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form
+              action="URL"
+              name="nameAndAdress"
+              class="popup__form popup__form_add-avatar"
+              novalidate
+            >
+              <input
+                type="url"
+                name="avatar"
+                id="imageAddress"
+                class="popup__field popup__field_type_image-address"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="popup__field-error" id="imageAddress-error"></span>
+              <button type="submit" class="popup__submit-button" disabled>
+                Сохранить
+              </button>
+            </form>
+          </div>
+        </div>
+
+      <div class="popup">
         <div class="popup__type-delete-card overlay">
           <button
             type="button"
@@ -138,7 +167,6 @@
               action="URL"
               name="nameAndAdress"
               class="popup__form popup__form_add"
-              novalidate
             >
               <button type="submit" class="popup__submit-button">
                 да
