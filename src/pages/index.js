@@ -22,25 +22,24 @@ import { PopupWithForm } from "../ components/PopupWithForm";
 import { PopupTypeDeleteCard } from "../ components/PopupTypeDeleteCard";
 import { UserInfo } from "../ components/UserInfo.js";
 import { Api } from "../ components/Api.js";
-import { PopupEditAvatar } from "../ components/PopupEditAvatar";
 
 //************************ Creating cards ****************************
 const api = new Api(host, token);
-api.getCards().then((items) => {
-  sectionCards.renderItems(items);
-});
-let userId;
+Promise.all([api.getUser(), api.getCards()])
+  .then(([info, items]) => {
+    userId = info._id;
+    user.setUserInfo(info);
+    sectionCards.renderItems(items);
+  })
+  .catch((err) => console.log(`Ошибка.....: ${err}`));
 
-api.getUser().then((info) => {
-  userId = info._id;
-  user.setUserInfo(info);
-});
+let userId;
 
 const sectionCards = new Section(
   {
     renderer: (item) => {
       const card = createElement(item);
-      sectionCards.addItem(card);
+      sectionCards.addItems(card);
     },
   },
   ".elements"
@@ -55,21 +54,30 @@ function createElement(item) {
     (id) => {
       popupTypeDeleteCard.open();
       popupTypeDeleteCard.changeDeleteClik(() => {
-        return api.deleteCardFromServer(id).then(() => {
-          card.deleteCard();
-          popupTypeDeleteCard.close();
-        });
+        return api
+          .deleteCardFromServer(id)
+          .then(() => {
+            card.deleteCard();
+            popupTypeDeleteCard.close();
+          })
+          .catch((err) => console.log(`Ошибка.....: ${err}`));
       });
     },
     () => {
       if (card.isLiked()) {
-        api.deleteLike(item._id).then((res) => {
-          card.setLikes(res.likes);
-        });
+        api
+          .deleteLike(item._id)
+          .then((res) => {
+            card.setLikes(res.likes);
+          })
+          .catch((err) => console.log(`Ошибка.....: ${err}`));
       } else {
-        api.addLike(item._id).then((res) => {
-          card.setLikes(res.likes);
-        });
+        api
+          .addLike(item._id)
+          .then((res) => {
+            card.setLikes(res.likes);
+          })
+          .catch((err) => console.log(`Ошибка.....: ${err}`));
       }
     }
   );
@@ -85,6 +93,7 @@ function addElement(item) {
       const element = createElement(item);
       sectionCards.addItem(element);
     })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(() => {
       popupAddForm.loading(false);
     });
@@ -95,11 +104,11 @@ function addElement(item) {
 const popupOpenImage = new PopupWithImage(".popup__open-image");
 const popupEditForm = new PopupWithForm(".popup__edit-profile", submitEditFotm);
 const popupAddForm = new PopupWithForm(".popup__add-card", handleElementSubmit);
-const popupTypeDeleteCard = new PopupTypeDeleteCard(".popup__type-delete-card");
-const popupNewAvatar = new PopupEditAvatar(
+const popupNewAvatar = new PopupWithForm(
   ".popup__new-avatar",
   addAvatarFromServer
 );
+const popupTypeDeleteCard = new PopupTypeDeleteCard(".popup__type-delete-card");
 
 const user = new UserInfo({
   profileName: ".profile__name",
@@ -121,6 +130,7 @@ function addAvatarFromServer(link) {
     .then((res) => {
       user.setUserAvatar(res.avatar);
     })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(() => {
       popupNewAvatar.loading(false);
     });
@@ -141,6 +151,7 @@ function submitEditFotm(data) {
     .then((data) => {
       user.setUserInfo(data);
     })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
     .finally(() => {
       popupEditForm.loading(false);
     });
